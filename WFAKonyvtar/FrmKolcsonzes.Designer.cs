@@ -101,9 +101,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(423, 55);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(195, 16);
+            this.label4.Size = new System.Drawing.Size(180, 16);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Kölcsönzés időtartama (hónap):";
+            this.label4.Text = "Kölcsönzés időtartama (nap):";
             // 
             // label5
             // 
@@ -125,7 +125,7 @@
             // 
             this.nudHonap.Location = new System.Drawing.Point(646, 50);
             this.nudHonap.Maximum = new decimal(new int[] {
-            12,
+            200,
             0,
             0,
             0});
@@ -170,7 +170,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmKolcsonzes";
             this.Text = "FrmKolcsonzes";
             this.Load += new System.EventHandler(this.FrmKolcsonzes_Load);

@@ -19,10 +19,8 @@ namespace WFAKonyvtar
             InitializeComponent();
         }
 
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
-            UpdateDGV();
-        }
+        private void FrmMain_Load(object sender, EventArgs e) => UpdateDGV();
+
 
         public void UpdateDGV()
         {
@@ -112,20 +110,38 @@ namespace WFAKonyvtar
             tbSelectedSzerzo.Text = sSzerzo;
             tbSelectedCim.Text = sCim;
 
+
+            UpdateStatus(sISBN);
+
+        }
+
+        public void UpdateStatus(string sISBN)
+        {
+            var ISBN = Convert.ToInt64(sISBN);
             var connection = new SqlConnection(connString);
             connection.Open();
-            var command = new SqlCommand("SELECT hatarido FROM Kolcsonzesek", connection);
-            var reader = command.ExecuteReader();
-            reader.Read();
-            if (reader.GetDateTime(0) > DateTime.Today)
+            try
             {
-                tbSelectedKolcsonozheto.Text = "NEM";
+                var command = new SqlCommand($"SELECT hatarido FROM Kolcsonzesek WHERE konyv = '{ISBN}';", connection);
+                var reader = command.ExecuteReader();
+                reader.Read();
+                if (reader.GetDateTime(0) <= DateTime.Today)
+                {
+                    tbSelectedKolcsonozheto.Text = "IGEN";
+                    btnKolcsonzes.Show();
+                }
+                else
+                {
+                    tbSelectedKolcsonozheto.Text = "NEM";
+                    btnKolcsonzes.Hide();
+                }
+                reader.Close();
             }
-            else
+            catch (Exception)
             {
+
                 tbSelectedKolcsonozheto.Text = "IGEN";
             }
-            reader.Close();
             connection.Close();
         }
 

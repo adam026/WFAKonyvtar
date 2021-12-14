@@ -39,15 +39,17 @@ namespace WFAKonyvtar
             var connection = new SqlConnection(connString);
             string nev = tbKolcsonzo.Text;
             long ISBN = Convert.ToInt64(sISBN);
-            var honap = Convert.ToInt32(nudHonap.Value);
-            var datum = new TimeSpan(0, honap, 0);
+            var nap = new TimeSpan(Convert.ToInt32(nudHonap.Value),0,0,0);
+            var hatarido = DateTime.Today + nap;
+
+
 
             try
             {
                 connection.Open();
                 var adapter = new SqlDataAdapter()
                 {
-                    InsertCommand = new SqlCommand($"INSERT INTO Kolcsonzesek VALUES('{nev}', '{ISBN}', '{DateTime.Today + datum}');",connection),
+                    InsertCommand = new SqlCommand($"INSERT INTO Kolcsonzesek VALUES('{nev}', '{ISBN}', '{hatarido.ToString("yyyy.MM.dd")}');",connection),
                 };
                 adapter.InsertCommand.ExecuteNonQuery();
 
@@ -62,6 +64,7 @@ namespace WFAKonyvtar
                 connection.Close();
             }
             this.Dispose();
+            
         }
     }
 }
